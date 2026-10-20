@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме | Макар Чміленко</title>
+
+    <!-- Спосіб 1: ЗОВНІШНІЙ (основна частина правил тут) -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Спосіб 2: ВНУТРІШНІЙ -->
+    <style>
+        .badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border: 1px solid #2563eb;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+
+<header class="hero" id="top">
+    <div class="hero__intro">
+        <h1>Макар Чміленко</h1>
+        <!-- Спосіб 3: ІНЛАЙН -->
+        <p class="role" style="letter-spacing: 0.08em;">Фахівець із кібербезпеки / Розробник</p>
+    </div>
+    <ul class="contacts">
+        <li><em>Email:</em> <a href="mailto:makar.chmilenko.kb.2025@lpnu.ua">makar.chmilenko.kb.2025@lpnu.ua</a></li>
+        <li><em>Місто:</em> Львів</li>
+        <li><em>GitHub:</em> <a href="https://github.com/Karmaschek" target="_blank" rel="noopener">github.com/Karmaschek</a></li>
+    </ul>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <section class="card">
+            <h2>Навички</h2>
+            <ul class="skills">
+                <li>HTML5, CSS3</li>
+                <li>Python</li>
+                <li>C#</li>
+                <li>Git / GitHub</li>
+                <li>Linux / Docker</li>
+                <li>React</li>
+                <li>Cisco Packet Tracer</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Мови</h2>
+            <ul class="plain-list">
+                <li>Українська — рідна</li>
+                <li>Англійська — B1</li>
+            </ul>
+        </section>
+    </aside>
+
+    <main class="content">
+        <section class="card" id="about">
+            <h2>Про мене</h2>
+            <p>Студент спеціальності «Кібербезпека» у НУ «Львівська політехніка». Цікавлюся мережевою безпекою, захистом систем і веброзробкою. Прагну розвиватися в напрямах, пов'язаних безпосередньо з кібербезпекою.</p>
+        </section>
+
+        <section class="card" id="education">
+            <h2>Освіта</h2>
+            <article>
+                <h3>Національний університет «Львівська політехніка»</h3>
+                <p>Кібербезпека</p>
+                <p class="period">2025 — дотепер</p>
+            </article>
+        </section>
+
+        <section class="card" id="experience">
+            <h2>Досвід роботи</h2>
+            <article>
+                <h3>Практика та навчальні проєкти</h3>
+                <p><span class="badge">Навчальна практика, 2025 — 2026</span></p>
+                <ul>
+                    <li>Моделювання та сегментація захищених мереж у Cisco Packet Tracer (VLAN, статична маршрутизація, DHCP)</li>
+                    <li>Розробка Python-утиліт для задач кібербезпеки (аудитор HTTP-заголовків безпеки)</li>
+                    <li>Скрипти автоматизації та аналізу логів</li>
+                </ul>
+            </article>
+        </section>
+    </main>
+
+</div>
+
+<footer class="footer">
+    <p>&copy; 2026 Макар Чміленко. Резюме створено в рамках лабораторних робіт №2–3.</p>
+</footer>
+
+</body>
+</html>
