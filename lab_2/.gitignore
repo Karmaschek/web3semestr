@@ -1,0 +1,7 @@
+﻿node_modules/
+lab_2_react/node_modules/
+dist/
+lab_2_react/dist/
+.idea/
+.DS_Store
+*.local
