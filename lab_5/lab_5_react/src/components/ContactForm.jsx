@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react'
 
-const FORMSPREE_URL = 'https://formspree.io/f/ВАШ_ЕНДПОЙНТ'
+// URL для надсилання форми через Formspree
+const FORMSPREE_URL = 'https://formspree.io/f/xrpqgqqr'
 
-function ContactForm() {
-  const [isOpen, setIsOpen] = useState(false)
+// Компонент приймає props для керування станом відкриття з App.jsx
+function ContactForm({ isOpen, onClose }) {
   const [status, setStatus] = useState('')
 
+  // Автопоказ через 1 хвилину, якщо модалку ще не показували
   useEffect(() => {
     if (sessionStorage.getItem('feedbackShown')) return
-    const timer = setTimeout(() => setIsOpen(true), 60000) // 1 хвилина
+    const timer = setTimeout(() => {
+      onClose(true) // відкриваємо через батьківський стан
+    }, 60000) // 1 хвилина
     return () => clearTimeout(timer)
-  }, [])
+  }, [onClose])
 
   const close = () => {
-    setIsOpen(false)
+    onClose(false) // закриваємо через батьківський стан
     sessionStorage.setItem('feedbackShown', '1')
   }
 

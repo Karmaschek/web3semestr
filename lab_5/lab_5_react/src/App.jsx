@@ -15,10 +15,20 @@ const themeByTime = () => {
 }
 
 function App() {
-  const [theme, setTheme] = useState('light')
+  // Завантажуємо тему з localStorage або використовуємо автоматичний режим за часом
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('theme')
+    return saved ? saved : themeByTime()
+  })
 
-  // автоперемикання за часом при завантаженні + перевірка щохвилини
+  // Стан для керування модальним вікном зворотного зв'язку
+  const [isContactOpen, setIsContactOpen] = useState(false)
+
+  // Автоперемикання за часом при завантаженні + перевірка щохвилини
+  // (тільки якщо тема не була вручну змінена)
+  const [manualOverride, setManualOverride] = useState(() => !!localStorage.getItem('theme'))
   useEffect(() => {
+    if (manualOverride) return
     let autoTheme = themeByTime()
     setTheme(autoTheme)
     const timer = setInterval(() => {
@@ -29,18 +39,31 @@ function App() {
       }
     }, 60000)
     return () => clearInterval(timer)
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Зберігаємо тему в localStorage при зміні
+  useEffect(() => {
+    localStorage.setItem('theme', theme)
+  }, [theme])
 
   // клас dark на <html> для Tailwind
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark')
   }, [theme])
 
-  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+  // Перемикання теми з збереженням у localStorage
+  const toggleTheme = () => {
+    setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+    setManualOverride(true)
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
-      <Header theme={theme} onToggleTheme={toggleTheme} />
+      <Header
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onOpenContact={() => setIsContactOpen(true)}
+      />
       <main className="mx-auto grid w-full max-w-5xl flex-1 gap-6 px-4 py-8 md:grid-cols-3">
         <div className="flex flex-col gap-6 md:col-span-2">
           <About />
@@ -52,7 +75,7 @@ function App() {
           <Skills />
         </div>
       </main>
-      <ContactForm />
+      <ContactForm isOpen={isContactOpen} onClose={setIsContactOpen} />
       <Footer />
     </div>
   )

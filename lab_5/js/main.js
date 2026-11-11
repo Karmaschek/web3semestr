@@ -121,21 +121,87 @@ function themeByTime() {
 }
 
 function initTheme() {
-    let autoTheme = themeByTime();
+    // Спочатку перевіряємо, чи збережено тему в localStorage
+    const saved = localStorage.getItem('theme');
+    let autoTheme = saved ? saved : themeByTime();
     applyTheme(autoTheme);
 
     // перевірка раз на хвилину: коли настає інша пора доби, тема міняється сама
+    // (тільки якщо тема не була вручну змінена)
+    let manualOverride = !!saved;
     setInterval(() => {
-        const current = themeByTime();
-        if (current !== autoTheme) {
-            autoTheme = current;
-            applyTheme(current);
+        if (!manualOverride) {
+            const current = themeByTime();
+            if (current !== autoTheme) {
+                autoTheme = current;
+                applyTheme(current);
+            }
         }
     }, 60000);
 
     themeBtn.addEventListener('click', () => {
-        applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+        const newTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        manualOverride = true;
+        autoTheme = newTheme;
+        applyTheme(newTheme);
+        // зберігаємо вибрану тему в localStorage
+        localStorage.setItem('theme', newTheme);
     });
+}
+
+/* ============ 5. Кнопка «Зворотний зв'язок» в шапці ============ */
+function initFeedbackBtn() {
+    const btn = document.getElementById('feedback-btn');
+    if (btn) {
+        btn.addEventListener('click', openModal);
+    }
+}
+
+/* ============ 6. Кнопка «Завантажити PDF» ============ */
+function initPdfBtn() {
+    const btn = document.getElementById('pdf-btn');
+    if (btn) {
+        btn.addEventListener('click', () => window.print());
+    }
+}
+
+/* ============ 7. Кнопка «Нагору» ============ */
+function initScrollTop() {
+    const btn = document.getElementById('scroll-top');
+    if (!btn) return;
+
+    window.addEventListener('scroll', () => {
+        // показати кнопку після прокрутки на 400 px
+        btn.hidden = window.scrollY < 400;
+    }, { passive: true });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+/* ============ 8. Навігація з якорями та IntersectionObserver ============ */
+function initNavHighlight() {
+    const links = document.querySelectorAll('.nav__link');
+    const sections = document.querySelectorAll('section[id]');
+
+    if (!links.length || !sections.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // прибрати активний клас у всіх посилань
+                links.forEach(l => l.classList.remove('active'));
+                // додати активний клас до поточного посилання
+                const activeLink = document.querySelector(`.nav__link[href="#${entry.target.id}"]`);
+                if (activeLink) activeLink.classList.add('active');
+            }
+        });
+    }, {
+        rootMargin: '-20% 0px -60% 0px', // зона активності — центр екрана
+    });
+
+    sections.forEach(section => observer.observe(section));
 }
 
 /* ============ Запуск ============ */
@@ -144,3 +210,7 @@ showLocalStorage();
 loadReviews();
 initModal();
 initTheme();
+initFeedbackBtn();
+initPdfBtn();
+initScrollTop();
+initNavHighlight();

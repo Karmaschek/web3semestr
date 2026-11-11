@@ -28,7 +28,10 @@
         <h1>Макар Чміленко</h1>
         <!-- Спосіб 3: ІНЛАЙН -->
         <p class="role" style="letter-spacing: 0.08em;">Фахівець із кібербезпеки / Розробник</p>
-        <button id="theme-toggle" class="theme-btn" type="button">🌙 Нічна тема</button>
+        <!-- Кнопка зміни теми -->
+        <button id="theme-toggle" class="theme-btn" type="button" aria-label="Змінити тему">🌙 Нічна тема</button>
+        <!-- Кнопка відкриття модального вікна зворотного зв'язку -->
+        <button id="feedback-btn" class="theme-btn" type="button" aria-label="Зворотний зв'язок">✉️ Зворотний зв'язок</button>
     </div>
     <ul class="contacts">
         <li><em>Email:</em> <a href="mailto:makar.chmilenko.kb.2025@lpnu.ua">makar.chmilenko.kb.2025@lpnu.ua</a></li>
@@ -36,6 +39,16 @@
         <li><em>GitHub:</em> <a href="https://github.com/Karmaschek" target="_blank" rel="noopener">github.com/Karmaschek</a></li>
     </ul>
 </header>
+
+<!-- Навігаційне меню з якорями -->
+<nav class="nav" aria-label="Навігація">
+    <ul class="nav__list">
+        <li><a href="#about" class="nav__link">Про мене</a></li>
+        <li><a href="#education" class="nav__link">Освіта</a></li>
+        <li><a href="#experience" class="nav__link">Досвід</a></li>
+        <li><a href="#reviews" class="nav__link">Відгуки</a></li>
+    </ul>
+</nav>
 
 <div class="layout">
 
@@ -98,6 +111,12 @@
 
 </div>
 
+<!-- Кнопка завантаження PDF (викликає діалог друку) -->
+<button id="pdf-btn" class="pdf-btn" type="button" aria-label="Завантажити PDF">📄 Завантажити PDF</button>
+
+<!-- Кнопка прокрутки нагору -->
+<button id="scroll-top" class="scroll-top" type="button" aria-label="Нагору" hidden>⬆ Нагору</button>
+
 <footer class="footer">
     <p>&copy; 2026 Макар Чміленко. Резюме створено в рамках лабораторних робіт №2–4.</p>
     <dl id="sysinfo" class="sysinfo"></dl>
@@ -107,20 +126,20 @@
     <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <button type="button" class="modal__close" id="modal-close" aria-label="Закрити">×</button>
         <h2 id="modal-title">Зворотний зв'язок</h2>
-        <form id="feedback-form" action="https://formspree.io/f/ВАШ_ЕНДПОЙНТ" method="POST">
+        <form id="feedback-form" action="https://formspree.io/f/xrpqgqqr" method="POST">
             <label>Ім'я
-                <input type="text" name="name" required>
+                <input type="text" name="name" required aria-label="Ім'я">
             </label>
             <label>Email
-                <input type="email" name="email" required>
+                <input type="email" name="email" required aria-label="Email">
             </label>
             <label>Номер телефону
-                <input type="tel" name="phone" required pattern="[+0-9\s()\-]{10,}">
+                <input type="tel" name="phone" required pattern="[+0-9\s()\-]{10,}" aria-label="Номер телефону">
             </label>
             <label>Повідомлення
-                <textarea name="message" rows="4" required></textarea>
+                <textarea name="message" rows="4" required aria-label="Повідомлення"></textarea>
             </label>
-            <button type="submit">Надіслати</button>
+            <button type="submit" aria-label="Надіслати форму">Надіслати</button>
             <p id="form-status" role="status"></p>
         </form>
     </div>

@@ -147,6 +147,39 @@ a:focus-visible {
         grid-template-columns: 1fr;    /* одна колонка */
     }
     h1 { font-size: 1.8rem; }
+    .nav__list {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
+
+/* ========== 11. Стилі для друку (PDF) ========== */
+@media print {
+    /* Сховати кнопки, модалку та футер із системною інформацією */
+    .theme-btn,
+    .pdf-btn,
+    .scroll-top,
+    .nav,
+    .modal,
+    .footer {
+        display: none !important;
+    }
+    /* Прибрати тіні та сірий фон */
+    body {
+        background: #fff;
+        color: #000;
+    }
+    .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        break-inside: avoid;
+    }
+    .hero {
+        background: #fff !important;
+        color: #000 !important;
+        border: none;
+    }
+    .hero a { color: #000 !important; }
 }
 
 /* ========== 11. Нічна тема ========== */
@@ -173,7 +206,89 @@ html[data-theme="dark"] {
 }
 .theme-btn:hover { background: rgba(255, 255, 255, 0.2); }
 
-/* ========== 13. Відгуки ========== */
+/* Видимий :focus для всіх кнопок та посилань */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 2px;
+}
+
+/* ========== 13. Навігаційне меню з якорями ========== */
+.nav {
+    max-width: 1100px;
+    margin: 0 auto 16px;
+    padding: 0 16px;
+}
+.nav__list {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.nav__link {
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: var(--text);
+    text-decoration: none;
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: background 0.2s, color 0.2s;
+}
+.nav__link:hover {
+    background: var(--primary);
+    color: #fff;
+}
+/* Активний розділ, підсвічується через IntersectionObserver */
+.nav__link.active {
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+}
+
+/* ========== 14. Кнопка завантаження PDF ========== */
+.pdf-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 50;
+    padding: 10px 18px;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--primary);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.2s;
+}
+.pdf-btn:hover { background: var(--primary-dark); }
+
+/* ========== 15. Кнопка «Нагору» ========== */
+.scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 50;
+    padding: 10px 16px;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--primary);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.2s;
+}
+.scroll-top:hover { background: var(--primary-dark); }
+.scroll-top[hidden] { display: none; }
+
+/* ========== 16. Відгуки ========== */
 .reviews {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -187,7 +302,7 @@ html[data-theme="dark"] {
 .review h3 { color: var(--primary); text-transform: capitalize; }
 .review__email { font-size: 0.85rem; color: var(--muted); }
 
-/* ========== 14. Системна інформація у футері ========== */
+/* ========== 17. Системна інформація у футері ========== */
 .sysinfo {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -201,7 +316,7 @@ html[data-theme="dark"] {
 .sysinfo dt { font-weight: 600; }
 .sysinfo dd { margin: 0; word-break: break-all; }
 
-/* ========== 15. Модальне вікно ========== */
+/* ========== 18. Модальне вікно ========== */
 .modal {
     position: fixed;
     inset: 0;
